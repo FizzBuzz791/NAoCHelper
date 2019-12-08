@@ -1,4 +1,4 @@
-﻿namespace AoCHelper
+﻿namespace NAoCHelper
 {
     public class User
     {

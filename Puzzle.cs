@@ -2,7 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AoCHelper
+namespace MAoCHelper
 {
     public class Puzzle
     {
