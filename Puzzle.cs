@@ -1,41 +1,48 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-namespace MAoCHelper
+namespace NAoCHelper
 {
     public class Puzzle
     {
         public int Year { get; }
         public int Day { get; }
+        [JsonProperty] // Required so that Newtonsoft.Json can populate it.
+        public string Input { get; private set; }
 
+        [JsonIgnore]
         private User User { get; }
-        private HttpClient Client { get; }
+        [JsonIgnore]
+        private HttpClient Client { get; } = new HttpClient();
+        [JsonIgnore]
+        private Cache Cache { get; } = new Cache();
 
         public Puzzle(User user, int year, int day)
         {
             User = user;
             Year = year;
             Day = day;
-
-            Client = new HttpClient();
-            Client.BaseAddress = new Uri($"https://adventofcode.com/{Year}/day/{Day}/");
-            Client.DefaultRequestHeaders.Add("cookie", User.Cookie);
         }
 
         public async Task<string> GetInputAsync()
         {
-            // TODO: Cache this.
-            var response = await Client.GetAsync("input");
-            if (response.IsSuccessStatusCode)
+            Client.BaseAddress = new Uri($"https://adventofcode.com/{Year}/day/{Day}/");
+            Client.DefaultRequestHeaders.Add("cookie", User.Cookie);
+
+            Input = Cache.GetInput(Year, Day);
+            if (string.IsNullOrWhiteSpace(Input))
             {
-                return await response.Content.ReadAsStringAsync();
+                var response = await Client.GetAsync("input");
+                if (response.IsSuccessStatusCode)
+                {
+                    Input = await response.Content.ReadAsStringAsync();
+                    Cache.SaveInput(this);
+                }
             }
-            else
-            {
-                // TODO: Add some logging.
-                return string.Empty;
-            }
+
+            return Input;
         }
     }
 }
