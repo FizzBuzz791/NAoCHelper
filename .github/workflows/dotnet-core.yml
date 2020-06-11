@@ -17,7 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
-    - name: Calculate Version 
+    - id: version
+      name: Calculate Version 
       uses: craig-day/compute-tag@v10
       with:
         github_token: ${{ github.token }}
@@ -25,4 +26,4 @@ jobs:
     - name: Install dependencies
       run: dotnet restore 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.compute_tag.outputs.next_tag }}
