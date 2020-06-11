@@ -27,3 +27,13 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }}
+    - name: Release
+      uses: actions/create-release@v1
+      if: ${{ github.event.pull_request.merged }}
+      with:
+        tag_name: ${{ steps.compute_tag.outputs.next_tag }}
+        release_name: ${{ steps.compute_tag.outputs.next_tag }}
+        body: >
+          Automatic release of ${{ steps.compute_tag.outputs.next_tag }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
