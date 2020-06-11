@@ -23,13 +23,14 @@ jobs:
       with:
         github_token: ${{ github.token }}
         version_scheme: semantic
+        version_type: patch
     - name: Install dependencies
       run: dotnet restore 
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }}
     - name: Release
       uses: actions/create-release@v1
-      if: ${{ github.event.push.ref == 'refs/head/master' }}
+      if: ${{ github.ref == 'refs/head/master' }}
       with:
         tag_name: ${{ steps.version.outputs.next_tag }}
         release_name: ${{ steps.version.outputs.next_tag }}
