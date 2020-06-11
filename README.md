@@ -1,4 +1,4 @@
-# AoC Helper
+# AoC Helper ![CI/CD](https://github.com/FizzBuzz791/NAoCHelper/workflows/.NET%20Core/badge.svg)
 
 A small, basic, utility package to help pull down the input (maybe more, like submit, in the future).
 
