@@ -41,8 +41,12 @@ jobs:
     needs: [build]
     
     steps:
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: NuGetPackage
     - name: Push to NuGet
-      run: dotnet nuget push -k $NuGetApiKey
+      run: dotnet nuget push -k $NuGetApiKey ./NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
       env:
         NuGetApiKey: ${{ secrets.NuGetApiKey }}  
     - name: Release
@@ -61,6 +65,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.release.outputs.upload_url }} 
-        asset_path: ./bin/Release/NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
+        asset_path: ./NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
         asset_name: NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
         asset_content_type: application/zip
