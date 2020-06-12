@@ -39,5 +39,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Push to NuGet
-      run: dotnet push -k ${{ NuGetApiKey }}
+      run: dotnet push -k $NuGetApiKey
       if: ${{ contains(github.ref, 'master') }}
+      env:
+        NuGetApiKey: ${{ secrets.NuGetApiKey }}  
