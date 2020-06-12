@@ -28,6 +28,11 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }}
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name:  NuGetPackage
+        path: ./bin/Release/NAoCHelper.${{steps.version.outputs.next_tag }}.nupkg
   
   release:
     
