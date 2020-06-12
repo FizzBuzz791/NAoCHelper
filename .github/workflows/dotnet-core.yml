@@ -48,9 +48,9 @@ jobs:
       with:
         name: NuGetPackage
     - name: Push to NuGet
-      run: dotnet nuget push ./NAoCHelper.${{ needs.build.outputs.version }}.nupkg -k $NuGetApiKey
+      run: dotnet nuget push ./NAoCHelper.${{ needs.build.outputs.version }}.nupkg -k $NuGetApiKey -s https://api.nuget.org/v3/index.json
       env:
-        NuGetApiKey: ${{ secrets.NuGetApiKey }}  
+        NuGetApiKey: ${{ secrets.NuGetApiKey }}
     - name: Release
       id: release
       uses: actions/create-release@v1
