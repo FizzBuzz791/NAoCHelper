@@ -28,9 +28,16 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }}
+  
+  release:
+    
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.ref, 'master')}}
+    needs: [build]
+    
+    steps:
     - name: Release
       uses: actions/create-release@v1
-      if: ${{ contains(github.ref, 'master') }}
       with:
         tag_name: ${{ steps.version.outputs.next_tag }}
         release_name: ${{ steps.version.outputs.next_tag }}
@@ -39,7 +46,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Push to NuGet
-      run: dotnet push -k $NuGetApiKey
-      if: ${{ contains(github.ref, 'master') }}
+      run: dotnet nuget push -k $NuGetApiKey
       env:
         NuGetApiKey: ${{ secrets.NuGetApiKey }}  
