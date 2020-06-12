@@ -38,3 +38,6 @@ jobs:
           Automatic release of ${{ steps.version.outputs.next_tag }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
+    - name: Push to NuGet
+      run: dotnet push -k ${{ NuGetApiKey }}
+      if: ${{ contains(github.ref, 'master') }}
