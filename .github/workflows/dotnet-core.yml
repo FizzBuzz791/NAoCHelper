@@ -55,10 +55,10 @@ jobs:
       id: release
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ steps.version.outputs.next_tag }}
-        release_name: ${{ steps.version.outputs.next_tag }}
+        tag_name: ${{ needs.build.outputs.version }}
+        release_name: ${{ needs.build.outputs.version }}
         body: >
-          Automatic release of ${{ steps.version.outputs.next_tag }}
+          Automatic release of ${{ needs.build.outputs.version }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Upload Release Asset
@@ -67,6 +67,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.release.outputs.upload_url }} 
-        asset_path: ./NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
-        asset_name: NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
+        asset_path: ./NAoCHelper.${{ needs.build.outputs.version }}.nupkg
+        asset_name: NAoCHelper.${{ needs.build.outputs.version }}.nupkg
         asset_content_type: application/zip
