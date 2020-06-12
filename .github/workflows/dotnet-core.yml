@@ -28,9 +28,21 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }}
+  
+  release:
+    
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.ref, 'master')}}
+    needs: [build]
+    
+    steps:
+    - name: Push to NuGet
+      run: dotnet nuget push -k $NuGetApiKey
+      env:
+        NuGetApiKey: ${{ secrets.NuGetApiKey }}  
     - name: Release
+      id: release
       uses: actions/create-release@v1
-      if: ${{ contains(github.ref, 'master') }}
       with:
         tag_name: ${{ steps.version.outputs.next_tag }}
         release_name: ${{ steps.version.outputs.next_tag }}
@@ -38,8 +50,12 @@ jobs:
           Automatic release of ${{ steps.version.outputs.next_tag }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-    - name: Push to NuGet
-      run: dotnet push -k $NuGetApiKey
-      if: ${{ contains(github.ref, 'master') }}
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
       env:
-        NuGetApiKey: ${{ secrets.NuGetApiKey }}  
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }} 
+        asset_path: ./bin/Release/NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
+        asset_name: NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
+        asset_content_type: application/zip
