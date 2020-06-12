@@ -10,6 +10,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.next_tag }}
 
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +48,7 @@ jobs:
       with:
         name: NuGetPackage
     - name: Push to NuGet
-      run: dotnet nuget push -k $NuGetApiKey ./NAoCHelper.${{ steps.version.outputs.next_tag }}.nupkg
+      run: dotnet nuget push -k $NuGetApiKey ./NAoCHelper.${{ needs.build.outputs.version }}.nupkg
       env:
         NuGetApiKey: ${{ secrets.NuGetApiKey }}  
     - name: Release
