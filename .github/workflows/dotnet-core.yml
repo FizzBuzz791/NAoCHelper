@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name:  NuGetPackage
-        path: ./bin/Release/NAoCHelper.${{steps.version.outputs.next_tag }}.nupkg
+        path: ./Solution/bin/Release/NAoCHelper.${{steps.version.outputs.next_tag }}.nupkg
   
   release:
     
