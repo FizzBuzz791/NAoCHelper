@@ -59,7 +59,7 @@ namespace NAoCHelper
             using (StreamReader cacheFileStream = File.OpenText(CacheLocation))
             {
                 // Only try to read if there's something to read. Might be better to use a try-catch around the Deserialize?
-                if (cacheFileStream.EndOfStream)
+                if (!cacheFileStream.EndOfStream)
                 {
                     pc = (PuzzleCache)Serializer.Deserialize(cacheFileStream, typeof(PuzzleCache));
                 }
