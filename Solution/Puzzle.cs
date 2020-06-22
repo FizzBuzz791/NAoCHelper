@@ -21,8 +21,16 @@ namespace NAoCHelper
 
         public Puzzle(User user, int year, int day)
         {
-            User = user;
+            User = user ?? throw new ArgumentNullException($"{nameof(user)} cannot be null.");
+
+            if (year < 2015 || year > DateTime.Now.Year)
+                throw new ArgumentOutOfRangeException($"{nameof(year)} must be greater than 2017.");
+
             Year = year;
+
+            if (day < 1 || day > 25)
+                throw new ArgumentOutOfRangeException($"{nameof(day)} must be a valid day of Christmas (1-25).");
+
             Day = day;
         }
 
