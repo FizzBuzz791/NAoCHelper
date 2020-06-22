@@ -26,10 +26,19 @@ jobs:
         github_token: ${{ github.token }}
         version_scheme: semantic
         version_type: patch
-    - name: Install dependencies
-      run: dotnet restore 
+    - name: Install dependencies (Solution)
+      run: dotnet restore Solution/NAoCHelper.csproj
     - name: Build
-      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }}
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.version.outputs.next_tag }} Solution/NAoCHelper.csproj
+    - name: Install dependencies (Tests)
+      run: dotnet restore Tests/NAoCHelperTests.csproj
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal Tests/NAoCHelperTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
+    - name: Coverage
+      uses: coverallsapp/github-action@v1.1.1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./Tests/lcov.info 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
