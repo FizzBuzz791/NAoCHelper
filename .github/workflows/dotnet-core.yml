@@ -33,11 +33,12 @@ jobs:
     - name: Install dependencies (Tests)
       run: dotnet restore Tests/NAoCHelperTests.csproj
     - name: Test
-      run: dotnet test --no-restore --verbosity normal Tests/NAoCHelperTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./coverage/lcov.info
+      run: dotnet test --no-restore --verbosity normal Tests/NAoCHelperTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
     - name: Coverage
       uses: coverallsapp/github-action@v1.1.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./Tests/lcov.info 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
