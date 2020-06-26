@@ -1,4 +1,4 @@
-# [Advent of Code](https://adventofcode.com/) Helper 
+# [Advent of Code](https://adventofcode.com/) Helper
 
 ![CI/CD](https://github.com/FizzBuzz791/NAoCHelper/workflows/CI/CD/badge.svg)
 

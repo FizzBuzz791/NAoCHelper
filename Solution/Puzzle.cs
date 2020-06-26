@@ -10,10 +10,10 @@ namespace NAoCHelper
         public int Year { get; }
         public int Day { get; }
         [JsonProperty] // Required so that Newtonsoft.Json can populate it.
-        public string Input { get; private set; }
+        public string? Input { get; private set; }
 
         [JsonIgnore]
-        private User User { get; }
+        private User? User { get; }
         [JsonIgnore]
         private HttpClient Client { get; } = new HttpClient();
         [JsonIgnore]
@@ -34,10 +34,17 @@ namespace NAoCHelper
             Day = day;
         }
 
+        [JsonConstructor]
+        public Puzzle(int year, int day)
+        {
+            Year = year;
+            Day = day;
+        }
+
         public async Task<string> GetInputAsync()
         {
             Client.BaseAddress = new Uri($"https://adventofcode.com/{Year}/day/{Day}/");
-            Client.DefaultRequestHeaders.Add("cookie", User.Cookie);
+            Client.DefaultRequestHeaders.Add("cookie", User?.Cookie ?? string.Empty);
 
             Input = Cache.GetInput(Year, Day);
             if (string.IsNullOrWhiteSpace(Input))

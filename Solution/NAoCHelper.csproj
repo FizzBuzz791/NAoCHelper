@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>NAoCHelper</PackageId>
     <Description>This .NET Advent of Code Helper package allows the user to automate the retrieval of the puzzle input.</Description>
     <Version>1.2.0</Version>
@@ -9,6 +9,8 @@
     <PackageProjectUrl>https://github.com/FizzBuzz791/NAoCHelper</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FizzBuzz791/NAoCHelper</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
