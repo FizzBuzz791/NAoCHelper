@@ -1,0 +1,14 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/Tests"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 99
+- package-ecosystem: nuget
+  directory: "/Solution"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 99
