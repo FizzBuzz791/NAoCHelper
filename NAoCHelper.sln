@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAoCHelper", "Solution\NAoCHelper.csproj", "{A7BEC492-3BA4-460C-B457-78FC1F28D475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAoCHelperTests", "Tests\NAoCHelperTests.csproj", "{6F9E0AA6-57DE-4038-8EB7-E14E75DCA4D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7BEC492-3BA4-460C-B457-78FC1F28D475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BEC492-3BA4-460C-B457-78FC1F28D475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BEC492-3BA4-460C-B457-78FC1F28D475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7BEC492-3BA4-460C-B457-78FC1F28D475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9E0AA6-57DE-4038-8EB7-E14E75DCA4D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9E0AA6-57DE-4038-8EB7-E14E75DCA4D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9E0AA6-57DE-4038-8EB7-E14E75DCA4D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9E0AA6-57DE-4038-8EB7-E14E75DCA4D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

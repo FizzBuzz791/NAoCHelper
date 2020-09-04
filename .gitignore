@@ -4,3 +4,5 @@
 packages/
 **/.vs/*
 **/lcov.info
+/.idea/*
+*.DotSettings.user
