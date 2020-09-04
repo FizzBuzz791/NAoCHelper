@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace NAoCHelper
 {
-    public class Puzzle
+    public class Puzzle : IPuzzle
     {
         public int Year { get; }
         public int Day { get; }
